@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análise de Projeto de Software</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #0ea5e9;
+            --bg-color: #f8fafc;
+            --text-color: #1e293b;
+            --card-bg: #ffffff;
+            --border-color: #e2e8f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: -2rem auto 3rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        h2 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+
+        /* Sistema de Abas (Tabs) */
+        .tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 0.5rem;
+            overflow-x: auto;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-color);
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .tab-btn:hover {
+            background-color: var(--border-color);
+        }
+
+        .tab-btn.active {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Grid de Fases */
+        .grid-phases {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .phase-card {
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .phase-card h3 {
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+
+        /* Seção Interativa / Simulador */
+        .interactive-section {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        select, input[type="text"] {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 1rem;
+            background: white;
+        }
+
+        button.btn-primary {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button.btn-primary:hover {
+            background-color: var(--primary-dark);
+        }
+
+        #resultado-analise {
+            margin-top: 1rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Análise de Projeto de Software</h1>
+        <p>Entenda os pilares, etapas e métricas essenciais para avaliar e estruturar o desenvolvimento de sistemas de alta qualidade.</p>
+    </header>
+
+    <main>
+        <!-- Seção Principal com Abas -->
+        <section class="card">
+            <h2>Fundamentos da Análise</h2>
+            
+            <div class="tabs">
+                <button class="tab-btn active" onclick="openTab(event, 'o-que-e')">O que é?</button>
+                <button class="tab-btn" onclick="openTab(event, 'etapas')">Etapas Principais</button>
+                <button class="tab-btn" onclick="openTab(event, 'beneficios')">Benefícios</button>
+            </div>
+
+            <div id="o-que-e" class="tab-content active">
+                <p>A <strong>Análise de Projeto de Software</strong> é o processo investigativo e de planejamento realizado antes e durante o desenvolvimento. O objetivo é compreender profundamente os requisitos do cliente, modelar a arquitetura, mitigar riscos técnicos e garantir que o produto final atenda às expectativas de negócio, desempenho e usabilidade.</p>
+            </div>
+
+            <div id="etapas" class="tab-content">
+                <div class="grid-phases">
+                    <div class="phase-card">
+                        <h3>1. Levantamento de Requisitos</h3>
+                        <p>Coleta de necessidades funcionais e não-funcionais junto aos stakeholders e usuários finais.</p>
+                    </div>
+                    <div class="phase-card">
+                        <h3>2. Modelagem e Arquitetura</h3>
+                        <p>Definição de diagramas (UML), escolha de tecnologias e estruturação do banco de dados.</p>
+                    </div>
+                    <div class="phase-card">
+                        <h3>3. Análise de Riscos</h3>
+                        <p>Identificação antecipada de gargalos de segurança, escalabilidade e prazos.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="beneficios" class="tab-content">
+                <ul>
+                    <li><strong>Redução de Custos:</strong> Corrigir falhas na fase de análise é muito mais barato do que após o código pronto.</li>
+                    <li><strong>Alinhamento de Expectativas:</strong> Evita mal-entendidos entre a equipe de desenvolvimento e o cliente.</li>
+                    <li><strong>Escalabilidade:</strong> Garante que o software cresça de forma sustentável.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Seção Interativa: Simulador de Viabilidade -->
+        <section class="card">
+            <h2>Simulador Rápido de Análise</h2>
+            <p>Selecione a complexidade do seu projeto para receber uma recomendação preliminar de abordagem.</p>
+            
+            <div class="interactive-section">
+                <div class="form-group">
+                    <label for="complexidade">Complexidade do Sistema:</label>
+                    <select id="complexidade">
+                        <option value="baixo">Baixa (Landing Page / CRUD Simples)</option>
+                        <option value="medio">Média (Sistema Comercial / E-commerce Padrão)</option>
+                        <option value="alto">Alta (Plataforma de Alta Escalabilidade / Fintech / IA)</option>
+                    </select>
+                </div>
+                <button class="btn-primary" onclick="analisarProjeto()">Gerar Recomendação</button>
+                <div id="resultado-analise"></div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Guia de Engenharia de Software. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        // Função para alternar entre as abas
+        function openTab(evt, tabName) {
+            const contents = document.getElementsByClassName("tab-content");
+            for (let i = 0; i < contents.length; i++) {
+                contents[i].classList.remove("active");
+            }
+
+            const buttons = document.getElementsByClassName("tab-btn");
+            for (let i = 0; i < buttons.length; i++) {
+                buttons[i].classList.remove("active");
+            }
+
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+
+        // Função interativa do simulador
+        function analisarProjeto() {
+            const complexidade = document.getElementById("complexidade").value;
+            const resultado = document.getElementById("resultado-analise");
+            
+            let mensagem = "";
+
+            switch(complexidade) {
+                case "baixo":
+                    mensagem = "Recomendação: Metodologia Ágil (Scrum/Kanban) rápida. Foco em prototipagem e entrega contínua com menor esforço de modelagem complexa.";
+                    break;
+                case "medio":
+                    mensagem = "Recomendação: Análise estruturada com diagramas de casos de uso, arquitetura em camadas e testes automatizados desde o início.";
+                    break;
+                case "alto":
+                    mensagem = "Recomendação: Análise de riscos rigorosa, arquitetura baseada em microsserviços ou nuvem distribuída, protótipos de alta fidelidade e planejamento de segurança avançado.";
+                    break;
+                default:
+                    mensagem = "Selecione uma complexidade válida.";
+            }
+
+            resultado.innerHTML = `<p>💡 ${mensagem}</p>`;
+        }
+    </script>
+</body>
+</html>
